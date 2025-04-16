@@ -1,23 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const buildingRoutes = require('./router/building.routes');
+const serviceRoutes = require('./router/service.routes');
+const residentRoutes = require('./router/resident.routes');
 
-const PORT = 5000;
 const app = express();
+const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(bodyParser.json());
 
-app.use(express.static("."));
-
+// Головна сторінка з меню
 app.get('/', (req, res) => {
-    res.status(200).json("Сервер працює");
+  res.sendFile(__dirname + '/index.html'); // Повертає HTML файл з меню
 });
 
-const buildingRoutes = require('./router/building.routes');
 app.use('/api/buildings', buildingRoutes);
 
-app.listen(PORT, () => console.log("SERVER START!!!"));
+app.use('/api/services', serviceRoutes);
 
+app.use('/api/residents', residentRoutes);
 
-var connection = require('./config/config.bd');
+app.listen(PORT, () => {
+  console.log("SERVER START!!!");
+});

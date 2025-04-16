@@ -7,7 +7,6 @@ const Building = function (building) {
   this.Construction_year = building.Construction_year;
 };
 
-// Знайти всі будинки
 Building.findAll = function (result) {
   db.query("SELECT * FROM building", function (err, res) {
     if (err) {
@@ -19,7 +18,6 @@ Building.findAll = function (result) {
   });
 };
 
-// Знайти будинок за ID
 Building.findById = function (id, result) {
   db.query("SELECT * FROM building WHERE Building_id = ?", id, function (err, res) {
     if (err) {
@@ -30,7 +28,6 @@ Building.findById = function (id, result) {
   });
 };
 
-// Створити новий будинок
 Building.create = function (newBuilding, result) {
   db.query("INSERT INTO building SET ?", newBuilding, function (err, res) {
     if (err) {
@@ -41,7 +38,6 @@ Building.create = function (newBuilding, result) {
   });
 };
 
-// Оновити будинок
 Building.update = function (id, building, result) {
   db.query(
     "UPDATE building SET Address = ?, Number_of_apartments = ?, Construction_year = ? WHERE Building_id = ?",
@@ -56,7 +52,6 @@ Building.update = function (id, building, result) {
   );
 };
 
-// Видалити будинок
 Building.delete = function (id, result) {
   db.query("DELETE FROM building WHERE Building_id = ?", [id], function (err, res) {
     if (err) {
